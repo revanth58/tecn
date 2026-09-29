@@ -4,9 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Traffic Engg in Computer Networks</title>
+    <style>
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .modal-buttons button {
+            padding: 20px 44px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 1px solid #888;
+            border-radius: 6px;
+            background: #f2f2f2;
+        }
+
+        .modal-buttons button:hover {
+            background: #ddd;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            box-sizing: border-box;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            overflow: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 8px;
+            right: 14px;
+            border: none;
+            background: transparent;
+            font-size: 32px;
+            line-height: 1;
+            cursor: pointer;
+            color: #333;
+            z-index: 2;
+        }
+
+        .close-button:hover {
+            color: #000;
+        }
+    </style>
 </head>
 <body>
     <h1>traffic engg in conputer networks</h1>
+    <div class="modal-buttons">
+        <button type="button" onclick="openModal('lrModal')">LR</button>
+        <button type="button" onclick="openModal('plrModal')">PLR</button>
+    </div>
+
     <p>socket programming basics : </p>
     <p>tcp : <a target="_blank" href = "codes/tcpclient.c">tcpclient.c</a> <span>,&nbsp;</span><a target="_blank" href = "codes/tcpserver.c">tcpserver.c</a></p>
     <p>udp : <a target="_blank" href = "codes/udpserver.c">udpclient.c</a> <span>,&nbsp;</span><a target="_blank" href = "codes/udpserver.c">udpserver.c</a></p>
@@ -33,5 +98,76 @@
 
     sep21 class slides : <a href="notes/pthreads_sync_problem.pdf">sync problems in multithreading (similarly multiple process also)</a>
     
+
+    <!-- LR Modal -->
+    <div id="lrModal" class="modal" onclick="closeModalOnOutside(event, 'lrModal')">
+        <div class="modal-content">
+            <button class="close-button" type="button" aria-label="Close LR modal"
+                    onclick="closeModal('lrModal')">&times;</button>
+
+            <!-- Add your LR HTML content here -->
+            <h2>LR</h2>
+            <p>module-1
+<br>1. need for traffic engineering
+<br>2. network performance metrics : delay, throughput, jitter
+<br>3. reasons for packet dropping even though it reached a machine
+<br>4. different type of delays in transmitting a frame from A to B on a direct link
+<br>5. switch and MAC address tables
+<br>6. routers and routing tables, IPV4 address space, subnetting
+<br>7. public and private address space.
+<br>8. TCP and UDP protocols
+<br><br>
+module-2
+<br>none
+<br><br>
+module-3
+<br>1. QoS parameters and architecture,QoS in IP networks: IntServ and DiffServ
+<br>2. Admission control, scheduling, traffic shaping and policing
+<br>3. Basics of scheduling algorithms : FCFS, Round robin, Priority based scheduling, preemptive, and non-preemptive scheduling
+<br>4. Weighted Fair Queuing (WFQ), Token Bucket, Leaky Bucket</p>
+        </div>
+    </div>
+
+    <!-- PLR Modal -->
+    <div id="plrModal" class="modal" onclick="closeModalOnOutside(event, 'plrModal')">
+        <div class="modal-content">
+            <button class="close-button" type="button" aria-label="Close PLR modal"
+                    onclick="closeModal('plrModal')">&times;</button>
+
+            <!-- Add your PLR HTML content here -->
+            <h2>PLR</h2>
+            <p>for PLR 1,2 question statements in this pdf : <a href="plr/plr1_2.pdf">link</a><br></p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function closeModalOnOutside(event, id) {
+            if (event.target === event.currentTarget) {
+                closeModal(id);
+            }
+        }
+
+        // Optional: close the currently open modal with the Escape key.
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(function(modal) {
+                    if (modal.style.display === 'flex') {
+                        closeModal(modal.id);
+                    }
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>
